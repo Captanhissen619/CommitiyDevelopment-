@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JUBA HEROES - Vote For Your Hero</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="logo">JUBA<br>HEROES</div><nav><a href="#" onclick="go('home');return false;">Home</a><a href="#" onclick="go('leader');return false;">🏆 Leaderboard</a><a href="#" onclick="go('about');return false;">About</a><a href="#" onclick="go('ads');return false;">Advertise</a><a href="#" onclick="go('contact');return false;">Contact</a><a href="#" onclick="go('admin');return false;">Admin <span id="pendingCount"></span></a></nav><div>🇸🇸</div></header>
+<div id="msgBox" class="msg" style="display:none;"></div>
+<div id="p-home" class="page show"><div class="wrap">
+<div id="topAd"></div>
+<input class="search" id="search" oninput="draw()" placeholder="🔍 Search heroes...">
+<div id="feat"></div>
+<div style="text-align:center;"><button type="button" class="small btn-share" onclick="setCat('All')">All</button><button type="button" class="small btn-share" onclick="setCat('Community')">Community</button><button type="button" class="small btn-share" onclick="setCat('Business')">Business</button><button type="button" class="small btn-share" onclick="setCat('Education')">Education</button><button type="button" class="small btn-share" onclick="setCat('Health')">Health</button><button type="button" class="small btn-share" onclick="setCat('Youth')">Youth</button><button type="button" class="small btn-share" onclick="setCat('Sports')">Sports</button></div>
+<h2 style="margin:15px 0;" id="heroCount">featured heroes</h2>
+<div class="grid" id="grid"></div>
+<div id="botAd"></div>
+<div class="form"><h2>Nominate A New Hero</h2><p style="color:#e67e22;font-weight:bold;">⏳ Your nomination will go to PENDING. Amos must approve it before it shows.</p><input id="nName" placeholder="Hero Name"><input id="nLoc" placeholder="Location - e.g. Gudele"><input id="nPhone" placeholder="Your WhatsApp (optional)"><select id="nCat"><option>Community</option><option>Business</option><option>Education</option><option>Health</option><option>Youth</option><option>Sports</option></select><textarea id="nStory" placeholder="Why is this person a hero?"></textarea><input type="file" id="nPhoto" accept="image/*"><button type="button" class="btn btn-vote" style="width:100%;animation:none;" onclick="addHero()">SUBMIT FOR APPROVAL ⏳</button><p id="nMsg" style="color:green;font-weight:bold;margin-top:8px;"></p></div>
+</div></div>
+<div id="p-leader" class="page"><div class="wrap"><h2>🏆 Leaderboard - Approved Only</h2><br><div class="grid" id="leaderGrid"></div></div></div>
+<div id="p-hero" class="page"><div class="wrap"><div id="heroBox"></div><br><a href="#" onclick="go('home');return false;">← Back to Home</a><h2 style="margin:20px 0;">More Heroes</h2><div class="grid" id="moreGrid"></div></div></div>
+<div id="p-about" class="page"><div class="wrap"><div class="form"><h1>About Juba Heroes</h1><p style="line-height:1.8;">By Amos from Gudele Block 7, Juba, South Sudan.<br><br>All nominations go to <b>PENDING</b>. Admin Amos checks and approves only real heroes. No fake, no bad posts.<br><br>1 person = 1 vote for 1 hero.</p><br><button type="button" class="btn btn-vote" onclick="go('home')">Nominate A Hero</button></div></div></div>
+<div id="p-ads" class="page"><div class="wrap"><div class="form"><h1>📢 Advertise</h1><p style="line-height:2;"><b>Top - 10,000 SSP / Week</b><br><b>Middle - 5,000 SSP / Week</b><br><b>Bottom - 7,000 SSP / Week</b><br><br>Your Ad will have:<br>✅ Your Website Link - click goes to your website<br>✅ Your WhatsApp Number - click goes to your WhatsApp</p><a class="btn btn-wa" href="https://api.whatsapp.com/send?phone=211925799662&text=I%20want%20to%20advertise%20on%20Juba%20Heroes">🟢 WhatsApp Amos - 0925799662</a></div></div></div>
+<div id="p-contact" class="page"><div class="wrap"><div class="form"><h1>Contact Amos</h1><p style="line-height:2;">Name: Amos<br>Location: Gudele Block 7, Juba<br>WhatsApp: 0925799662</p><a class="btn btn-wa" href="https://api.whatsapp.com/send?phone=211925799662&text=Hello%20Amos">Chat on WhatsApp</a></div></div></div>
+<div id="p-admin" class="page"><div class="wrap"><div class="form">
+<h1>Admin Login</h1><p style="color:#666;">Only Amos can login here.</p>
+<input type="password" id="adminPass" placeholder="Enter Admin Password">
+<button type="button" class="btn btn-vote" style="animation:none;" onclick="loginAdmin()">Login</button>
+<p id="adminError" style="color:red;font-weight:bold;margin-top:8px;display:none;">❌ Wrong Password. Try again.</p>
+<div id="adminArea" style="display:none;margin-top:20px;">
+<p id="adminStats"></p>
+<h2 style="margin-top:20px;background:#fff3cd;padding:12px;border-radius:10px;">⏳ PENDING APPROVAL - <span id="pendingTitle">0 waiting</span></h2>
+<div id="pendingList"></div>
+<h2 style="margin-top:20px;">✅ Approved Heroes</h2><div id="approvedList"></div>
+<h2 style="margin-top:20px;">❌ Rejected Heroes</h2><div id="rejectedList"></div>
+<h2 style="margin-top:20px;">📢 Advertisement Admin</h2>
+<p style="color:#555;">For each Ad, add the shop's Website Link + WhatsApp Number. If empty, it will use Amos WhatsApp.</p>
+<h3 style="margin-top:12px;">Top Ad</h3><input id="aTopT" placeholder="Ad Title - e.g. Gudele Supermarket"><input id="aTopX" placeholder="Ad Text"><input id="aTopLink" placeholder="Website Link - e.g. https://myshop.com (optional)"><input id="aTopWA" placeholder="Shop WhatsApp Number - e.g. 0925799662 (optional)"><input type="file" id="aTopP" accept="image/*"><button type="button" class="btn btn-vote" style="animation:none;" onclick="saveAd('top')">Save Top Ad</button> <button type="button" class="small btn-share" onclick="delAd('top')">Delete Top Ad</button><div id="aTopNow"></div>
+<h3 style="margin-top:12px;">Middle Ad</h3><input id="aMidT" placeholder="Ad Title"><input id="aMidX" placeholder="Ad Text"><input id="aMidLink" placeholder="Website Link - e.g. https://myshop.com (optional)"><input id="aMidWA" placeholder="Shop WhatsApp Number - e.g. 0925799662 (optional)"><input type="file" id="aMidP" accept="image/*"><button type="button" class="btn btn-vote" style="animation:none;" onclick="saveAd('middle')">Save Middle Ad</button> <button type="button" class="small btn-share" onclick="delAd('middle')">Delete Middle Ad</button><div id="aMidNow"></div>
+<h3 style="margin-top:12px;">Bottom Ad</h3><input id="aBotT" placeholder="Ad Title"><input id="aBotX" placeholder="Ad Text"><input id="aBotLink" placeholder="Website Link - e.g. https://myshop.com (optional)"><input id="aBotWA" placeholder="Shop WhatsApp Number - e.g. 0925799662 (optional)"><input type="file" id="aBotP" accept="image/*"><button type="button" class="btn btn-vote" style="animation:none;" onclick="saveAd('bottom')">Save Bottom Ad</button> <button type="button" class="small btn-share" onclick="delAd('bottom')">Delete Bottom Ad</button><div id="aBotNow"></div>
+<br><button type="button" class="small btn-vote" onclick="resetVotes()">Reset ALL Votes To 0</button>
+</div>
+</div></div></div>
+<div id="lightbox" onclick="closeLightbox()"><span class="lb-close">✕ CLOSE</span><img id="lightboxImg" src="" onclick="event.stopPropagation();toggleZoom()"><p class="lb-hint" onclick="event.stopPropagation()">👆 Tap image to zoom • Tap outside to close</p><p id="lightboxName" class="lb-name"></p></div>
+<div id="popBox" onclick="closePop()"><div class="popCard" onclick="event.stopPropagation()"><div style="font-size:55px;">🎉</div><h2>Thank You! 🙏</h2><p id="popText"></p><h2 id="popVotes"></h2><br><a id="popShare" class="btn btn-share" href="#" target="_blank">↗ SHARE NOW</a><button type="button" class="btn btn-vote" style="animation:none;" onclick="closePop()">DONE ✔</button></div></div>
+<footer><b>© 2026 Juba Heroes • By Amos - Gudele Block 7</b><br><a href="#" onclick="go('home');return false;">Home</a> | <a href="#" onclick="go('leader');return false;">Leaderboard</a> | <a href="#" onclick="go('about');return false;">About</a> | <a href="#" onclick="go('ads');return false;">Advertise</a> | <a href="#" onclick="go('contact');return false;">Contact</a> | <a href="#" onclick="go('admin');return false;">Admin</a><br><br><a href="https://api.whatsapp.com/send?phone=211925799662&text=Hello%20Amos">WhatsApp </a></footer>
+<script src="in.js"></script>
+</body>
+</html>
