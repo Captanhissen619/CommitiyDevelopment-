@@ -1,10 +1,4 @@
-var heroes = [
-{id:1,name:"Mama Rebecca - Market Mother",loc:"Konyo Konyo",cat:"Community",story:"She feeds 50 orphans every day from her small tea shop. She never asks for money.",votes:125,photo:"",views:210,status:"approved",by:"Amos"},
-{id:2,name:"Boda James",loc:"Gudele Block 7",cat:"Community",story:"He carries sick people to hospital for free at night. Everyone in Gudele knows him.",votes:98,photo:"",views:180,status:"approved",by:"Amos"},
-{id:3,name:"Teacher Peter",loc:"Munuki",cat:"Education",story:"He teaches 200 children for free under a tree. He bought books with his own salary.",votes:87,photo:"",views:150,status:"approved",by:"Amos"},
-{id:4,name:"Nurse Akech",loc:"Juba Teaching Hospital",cat:"Health",story:"She works 16 hours a day helping mothers give birth safely.",votes:76,photo:"",views:120,status:"approved",by:"Amos"},
-{id:5,name:"Young Samuel - Football Coach",loc:"Hai Cinema",cat:"Sports",story:"He trains 80 street boys to play football and stay away from drugs.",votes:64,photo:"",views:110,status:"approved",by:"Amos"}
-];
+var heroes = [];
 var voted = [];
 var ads = {};
 var catNow = "All";
